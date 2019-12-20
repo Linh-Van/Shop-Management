@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_color_tree_view" model="ir.ui.view">
+            <field name="name">Product Color Tree View</field>
+            <field name="model">product.color.att</field>
+            <field name="arch" type="xml">
+                <tree string="Color">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_color_form_view" model="ir.ui.view">
+            <field name="name">Product Color Form View</field>
+            <field name="model">product.color.att</field>
+            <field name="arch" type="xml">
+                <form string="Color">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="xanh" model="product.color.att">
+            <field name="name">Xanh</field>
+        </record>
+        <record id="do" model="product.color.att">
+            <field name="name">Đỏ</field>
+        </record>
+        <record id="tim" model="product.color.att">
+            <field name="name">Tím</field>
+        </record>
+        <record id="vang" model="product.color.att">
+            <field name="name">Vàng</field>
+        </record>
+        <record id="xanh_da" model="product.color.att">
+            <field name="name">Xanh da trời</field>
+        </record>
+        <record id="trang" model="product.color.att">
+            <field name="name">Trắng</field>
+        </record>
+        <record id="den" model="product.color.att">
+            <field name="name">Đen</field>
+        </record>
+        <record id="hong" model="product.color.att">
+            <field name="name">Hồng</field>
+        </record>
+        <record id="nau" model="product.color.att">
+            <field name="name">Nâu</field>
+        </record>
+
+        <record id="product_color_action" model="ir.actions.act_window">
+            <field name="name">Màu sắc</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.color.att</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="product_color_a" name="Màu sắc" sequence="3" action="product_color_action" parent="products_menu_parent"/>
+
+    </data>
+</odoo>

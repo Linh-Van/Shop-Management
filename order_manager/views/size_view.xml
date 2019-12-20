@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_size_tree_view" model="ir.ui.view">
+            <field name="name">Product Size Tree View</field>
+            <field name="model">product.size</field>
+            <field name="arch" type="xml">
+                <tree string="Size">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_size_form_view" model="ir.ui.view">
+            <field name="name">Product Size Form View</field>
+            <field name="model">product.size</field>
+            <field name="arch" type="xml">
+                <form string="Size">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="25" model="product.size">
+            <field name="name">25</field>
+        </record>
+        <record id="26" model="product.size">
+            <field name="name">26</field>
+        </record>
+        <record id="27" model="product.size">
+            <field name="name">27</field>
+        </record>
+        <record id="28" model="product.size">
+            <field name="name">28</field>
+        </record>
+        <record id="29" model="product.size">
+            <field name="name">29</field>
+        </record>
+        <record id="30" model="product.size">
+            <field name="name">30</field>
+        </record>
+        <record id="31" model="product.size">
+            <field name="name">31</field>
+        </record>
+        <record id="32" model="product.size">
+            <field name="name">32</field>
+        </record>
+        <record id="s" model="product.size">
+            <field name="name">S</field>
+        </record>
+        <record id="m" model="product.size">
+            <field name="name">M</field>
+        </record>
+        <record id="l" model="product.size">
+            <field name="name">L</field>
+        </record>
+        <record id="xl" model="product.size">
+            <field name="name">XL</field>
+        </record>
+        <record id="xxl" model="product.size">
+            <field name="name">XXL</field>
+        </record>
+
+
+        <record id="product_size_action" model="ir.actions.act_window">
+            <field name="name">Size</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.size</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="product_size" name="Size" sequence="4" action="product_size_action" parent="products_menu_parent"/>
+
+    </data>
+</odoo>

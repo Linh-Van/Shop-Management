@@ -1,0 +1,30 @@
+{
+    'name': 'Shop Management',
+    'version': '1.0',
+    'summary': 'Shop Management',
+    'sequence': 1,
+    'description': """
+
+    """,
+    'category': '',
+    'website': '',
+    'depends': ['base'],
+    'data': [
+        'security/order_manager_security.xml',
+        'security/ir.model.access.csv',
+        'data/data.xml',
+        'views/order_view.xml',
+        'views/product_view.xml',
+        'views/customer_view.xml',
+        'views/category_view.xml',
+        'views/uom_view.xml',
+        'views/color_view.xml',
+        'views/size_view.xml',
+        'views/material_view.xml',
+        'views/product_user_view.xml',
+        'wizard/add_quantity.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

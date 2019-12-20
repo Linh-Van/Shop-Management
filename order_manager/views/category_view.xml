@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_category_tree_view" model="ir.ui.view">
+            <field name="name">Product Category Tree View</field>
+            <field name="model">product.category.shop</field>
+            <field name="arch" type="xml">
+                <tree string="Category">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_category_form" model="ir.ui.view">
+            <field name="name">CategoryFormView</field>
+            <field name="model">product.category.shop</field>
+            <field name="arch" type="xml">
+                <form string="Category">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ao" model="product.category.shop">
+            <field name="name">Áo</field>
+        </record>
+        <record id="quan" model="product.category.shop">
+            <field name="name">Quần</field>
+        </record>
+        <record id="giay" model="product.category.shop">
+            <field name="name">Giày</field>
+        </record>
+        <record id="phu_kien" model="product.category.shop">
+            <field name="name">Phụ kiện</field>
+        </record>
+
+        <record id="product_category_action" model="ir.actions.act_window">
+            <field name="name">Loại</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.category.shop</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="product_category_a" name="Loại" sequence="1" action="product_category_action" parent="products_menu_parent"/>
+
+    </data>
+</odoo>

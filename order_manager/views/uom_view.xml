@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_uom_tree_view" model="ir.ui.view">
+            <field name="name">Product Category Tree View</field>
+            <field name="model">product.uom</field>
+            <field name="arch" type="xml">
+                <tree string="Uom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_uom_form_view" model="ir.ui.view">
+            <field name="name">Product Uom Form View</field>
+            <field name="model">product.uom</field>
+            <field name="arch" type="xml">
+                <form string="Uom">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cai" model="product.uom">
+            <field name="name">Cái</field>
+        </record>
+        <record id="bo" model="product.uom">
+            <field name="name">Bộ</field>
+        </record>
+        <record id="doi" model="product.uom">
+            <field name="name">Đôi</field>
+        </record>
+        <record id="chiec" model="product.uom">
+            <field name="name">Chiếc</field>
+        </record>
+
+        <record id="product_uom_action" model="ir.actions.act_window">
+            <field name="name">Đơn vị tính</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.uom</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="product_uom" name="Đơn vị tính" sequence="2" action="product_uom_action" parent="products_menu_parent"/>
+
+    </data>
+</odoo>

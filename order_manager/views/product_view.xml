@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_tree_view" model="ir.ui.view">
+            <field name="name">Product Tree View</field>
+            <field name="model">products</field>
+            <field name="arch" type="xml">
+                <tree string="Sản phẩm">
+                    <field name="code"/>
+                    <field name="product_name"/>
+                    <field name="category_ids"/>
+                    <field name="product_user_ids"/>
+                    <field name="color_ids"/>
+                    <field name="size_ids"/>
+                    <field name="material_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_form_view" model="ir.ui.view">
+            <field name="name">Product</field>
+            <field name="model">products</field>
+            <field name="arch" type="xml">
+                <form string="Orders">
+                    <header>
+                        <button name="order_manager.action_res_partner_quantity_wizards"
+                                string="Nhập hàng vào kho" class="oe_highlight" type="action"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                           <button icon="fa-wpforms" class="oe_stat_button">
+                                <field name="total" widget="statinfo"/>
+                           </button>
+                            <button icon="fa-wpforms" class="oe_stat_button">
+                                <field name="sold" widget="statinfo"/>
+                           </button>
+                            <button icon="fa-wpforms" class="oe_stat_button">
+                                <field name="remain" widget="statinfo"/>
+                           </button>
+                        </div>
+
+                        <field name="image" widget="image" class="oe_avatar"
+                                   option="{'preview': 'image', 'size': [240, 240]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="product_name" placeholder="Tên sản phẩm" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" required="1"/>
+                                <field name="category_ids" required="1"/>
+                                <field name="uom_ids" required="1"/>
+                                <field name="size_ids" required="1"/>
+                                <field name="color_ids" required="1"/>
+                                <field name="material_ids" required="1"/>
+                            </group>
+                            <group>
+                                <field name="customer_ids" required="1" widget="many2many_tags" domain="[('is_vendor', '=', True)]"/>
+                                <field name="date" readonly="1"/>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="price" required="1"/>
+                                <field name="stand_price" required="1"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="products_search_view" model="ir.ui.view">
+           <field name="name">Product Search</field>
+           <field name="model">products</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="code" />
+                    <field name="product_name" />
+                    <group expand="0" string="Group by">
+                        <filter string="Mã" name="code" context="{'group_by':'code'}"/>
+                        <filter string="Tên" name="name" context="{'group_by':'product_name'}"/>
+                        <filter string="Nhóm" name="group" context="{'group_by':'category_ids'}"/>
+                        <filter string="Người sử dụng" name="user" context="{'group_by':'product_user_ids'}"/>
+                        <filter string="Màu sắc " name="group" context="{'group_by':'color_ids'}"/>
+                        <filter string="Size" name="group" context="{'group_by':'size_ids'}"/>
+                        <filter string="Chất liệu" name="group" context="{'group_by':'material_ids'}"/>
+                    </group>
+                </search>
+           </field>
+        </record>
+
+        <record id="product_action" model="ir.actions.act_window">
+            <field name="name">Sản phẩm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">products</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="products_menu_parent" name="Sản phẩm" sequence="3" parent="order_menu_parent"/>
+        <menuitem id="products_menu"
+                  name="Sản phẩm"
+                  sequence="1"
+                  action="product_action"
+                  parent="products_menu_parent"/>
+
+    </data>
+</odoo>

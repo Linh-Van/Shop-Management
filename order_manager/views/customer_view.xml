@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_tree_view" model="ir.ui.view">
+            <field name="name">Customer Tree View</field>
+            <field name="model">customer</field>
+            <field name="arch" type="xml">
+                <tree string="customer">
+                    <field name="code"/>
+                    <field name="name" required="1"/>
+                    <field name="gender"/>
+                    <field name="phone"/>
+                    <field name="address"/>
+                    <field name="is_customer"/>
+                    <field name="is_vendor"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="customer_form_view" model="ir.ui.view">
+            <field name="name">Customer</field>
+            <field name="model">customer</field>
+            <field name="arch" type="xml">
+                <form string="customer">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(order_manager.order_action_by_customer)d"
+                                    type="action"
+                                    class="oe_stat_button"
+                                    icon="fa-wpforms"
+                                    attrs="{'invisible': [('order_count', '=', 0)]}">
+                                <field name="order_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" readonly="1"/>
+                                <field name="phone"/>
+                                <field name="address"/>
+                                <field name="gender"/>
+                            </group>
+                            <group>
+                                <field name="is_customer"/>
+                                <field name="is_vendor"/>
+                                <field name="employee_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible': [('is_vendor', '=', True)]}">
+                                <page name="orders" string="Hóa đơn">
+                                <field name="order_ids">
+                                    <tree>
+                                        <field name="code"/>
+                                        <field name="date"/>
+                                        <field name="total_amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_search_view" model="ir.ui.view">
+           <field name="name">Customer Search</field>
+           <field name="model">customer</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="phone" />
+                    <filter string="Nam" name="male" domain="[('gender','=','male')]"/>
+                    <filter string="Nữ" name="female" domain="[('gender','=','female')]"/>
+                    <filter string="Là Khách Hàng" name="customer" domain="[('is_customer','=', True)]"/>
+                    <filter string="Là Nhà Cung Cấp" name="vendor" domain="[('is_vendor','=', True)]"/>
+                    <group expand="0" string="Group by">
+                        <filter string="Mã khách hàng" name="code" context="{'group_by':'code'}"/>
+                        <filter string="Số điện thoại" name="phone_a" context="{'group_by':'phone'}"/>
+                    </group>
+                </search>
+           </field>
+        </record>
+
+        <record id="customer_action" model="ir.actions.act_window">
+            <field name="name">Khách hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="customer_menu"
+                  name="Khách hàng"
+                  sequence="2"
+                  action="customer_action"
+                  parent="order_menu_parent"/>
+
+    </data>
+</odoo>

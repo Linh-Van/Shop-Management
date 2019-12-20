@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_user_tree_view" model="ir.ui.view">
+            <field name="name">Product ProductUser Tree View</field>
+            <field name="model">product.user</field>
+            <field name="arch" type="xml">
+                <tree string="ProductUser">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_category_form_view" model="ir.ui.view">
+            <field name="name">Product ProductUser Form View</field>
+            <field name="model">product.user</field>
+            <field name="arch" type="xml">
+                <form string="ProductUser">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="nam" model="product.user">
+            <field name="name">Nam</field>
+        </record>
+        <record id="nư" model="product.user">
+            <field name="name">Nữ</field>
+        </record>
+
+        <record id="product_user_action" model="ir.actions.act_window">
+            <field name="name">Giới tính sử dụng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.user</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="product_user" name="Người sử dụng" sequence="6" action="product_user_action" parent="products_menu_parent"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="res_partner_comment_wizard">
+            <field name="name">Nhập hàng vào kho</field>
+            <field name="model">add.quantity</field>
+            <field name="arch" type="xml">
+                <form string="Add quantity">
+                    <group>
+                        <field name="quantity"/>
+                    </group>
+                    <footer>
+                        <button string="Ok"
+                            name="add_quantity" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_res_partner_quantity_wizards" model="ir.actions.act_window">
+            <field name="name">Nhập hàng vào kho</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">add.quantity</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
