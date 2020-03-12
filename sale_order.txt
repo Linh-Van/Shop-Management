@@ -1,0 +1,96 @@
+# -*- coding: utf-8 -*-
+from odoo import models, fields, api
+from odoo.exceptions import UserError
+
+
+class InheritOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    available = fields.Char(string='Available')
+
+    # @api.multi
+    # @api.onchange('product_uom_qty','product_id')
+    # def check_qty(self):
+    #     for line in self:
+    #         if line.product_id.qty_available > 0:
+    #             if line.product_id.qty_available > line.product_uom_qty:
+    #                 line.available = 'Full'
+    #             elif line.product_id.qty_available < line.product_uom_qty:
+    #                 line.available = 'Only %s/%s' % (line.product_id.qty_available, line.product_uom_qty)
+    #         elif line.product_id.qty_available == 0:
+    #             line.available = 'Sold Out'
+
+
+class InheritStockMove(models.Model):
+    _inherit = "stock.location"
+
+    order_id = fields.One2many('sale.order', 'location_id', string='Sale Order')
+
+class InheritStockPickingType(models.Model):
+    _inherit = 'stock.picking.type'
+    order_id = fields.One2many('sale.order', 'picking_type_id', string='Order')
+
+
+class InheritSaleOrder(models.Model):
+    _inherit = 'sale.order'
+    state = fields.Selection(selection_add=[('returns', 'Returns')])
+    location_id = fields.Many2one('stock.location', string='Source Location')
+    picking_type_id = fields.Many2one('stock.picking.type', string="Operation Type", readonly=False)
+
+
+    @api.multi
+    def see_availability(self):
+        for order in self:
+            for line in order.order_line:
+                if line.product_id.qty_available > 0:
+                    if line.product_id.qty_available > line.product_uom_qty:
+                        line.available = 'Full'
+                    elif line.product_id.qty_available < line.product_uom_qty:
+                        line.available = 'Only %s/%s' % (
+                        line.product_id.qty_available, line.product_uom_qty)
+                elif line.product_id.qty_available == 0:
+                    line.available = 'Sold Out'
+
+    @api.multi
+    def button_refund(self):
+        """Create a copy of order  for refund order"""
+        SaleOrder = self.env['sale.order']
+        for order in self:
+            if order.state == 'sale':
+                order_clone = order.copy({
+                    'name': 'RF_%s' % order.name,
+                    'state': 'returns',
+                    'confirmation_date': fields.Datetime.now(),
+                    'order_line': False,
+                })
+                for line in order.order_line:
+                    order_line_clone = line.copy({
+                        'order_id': order_clone.id,
+                        'product_uom_qty': -line.product_uom_qty,
+                    })
+                SaleOrder += order_clone
+
+        return {
+            'name': 'Return Products',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'sale.order',
+            'res_id': SaleOrder.ids[0],
+            'view_id': False,
+            'context': self.env.context,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            # 'domain': [('order_line.product_uom_qty', '&gt;', '0')],
+        }
+
+    @api.multi
+    def confirm_refund(self):
+        order_picking = {
+            'origin': self.name,
+            'picking_type_id': self.picking_type_id,
+            'location_id': self.location_id.id,
+            'move_type': 'direct',
+            'company_id': self.company_id.id,
+            'state': 'done',
+        }
+        return self.env['stock.picking'].create(order_picking)
