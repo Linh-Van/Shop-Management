@@ -95,3 +95,4 @@ class InheritSaleOrder(models.Model):
         }
         return self.env['stock.picking'].create(order_picking)
 ############123114144243412413124124124241242
+############123114144243412413124124124241242
