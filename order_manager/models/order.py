@@ -56,4 +56,8 @@ class Order(models.Model):
                 raise ValidationError('Bạn không có quyền xóa hóa đơn đã thanh toán!\n '
                                       'Vui lòng liên hệ đến quản trị viên!')
         return super(Order, self).unlink()
+<<<<<<< HEAD
     # day la doan test git
+=======
+    # cmt on github
+>>>>>>> 75aa2814c9b4a1978f72aeb182fafa0dc7b0a9ba
