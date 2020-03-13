@@ -66,3 +66,4 @@ class Order(models.Model):
 amasasdadkadaskdasbkdaskdakda
 #dasdasdm,asdmasdasdasmm        tren aaa
 # thu merge tren aaa
+# thu merge tren aaa lan2
